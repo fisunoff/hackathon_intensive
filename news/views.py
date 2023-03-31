@@ -1,7 +1,11 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView ,ListView
+
 from news.models import News
 
 
@@ -9,17 +13,33 @@ def home(request: HttpRequest):
     return redirect('news/')
 
 
-def all_news(request: HttpRequest):
-    news = News.objects.order_by('-time_create')
-    context = {
-        'news': news,
-    }
-    return render(request, 'news/home.html', context=context)
+class NewsListView(ListView):
+    model = News
+    template_name = 'news/home.html'
+    context_object_name = 'news'
 
 
-def detail(request: HttpRequest, news_id: int):
-    news = get_object_or_404(News, pk=news_id)
-    context = {
-        'news': news,
-    }
-    return render(request, 'news/detail.html', context=context)
+class NewsDetailView(DetailView):
+    model = News
+    template_name = 'news/detail.html'
+
+
+class NewsCreatView(CreateView):
+    model = News
+    template_name = 'news/new.html'
+    fields = ['title', 'author', 'info']
+
+
+class NewsUpdateView(UpdateView):
+    models = News
+    template_name = 'news/edit.html'
+    fields = ['title', 'info']
+
+    def get_queryset(self):
+        return News.objects.all()
+
+
+class NewsDeleteView(DeleteView):  # Создание нового класса
+    model = News
+    template_name = 'news/delete.html'
+    success_url = reverse_lazy('news:home')
