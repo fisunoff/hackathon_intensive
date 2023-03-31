@@ -33,4 +33,4 @@ urlpatterns = [
     path('classes/', include('classes.urls')),
     path('reg_events/', include('reg_event.urls')),
     path('homework/', include('homework.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
