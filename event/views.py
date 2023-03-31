@@ -61,8 +61,8 @@ class EventDetailView(DetailView):
         user = User.objects.get(pk=self.request.user.id)
         context['is_staff'] = user.groups.filter(name__in=['worker', ]).exists()
         context['link'] = f"?event_id={self.object.pk}"
-        context['students_count'] = len(self.object.classes_by_event.all())
-        context['classes_count'] = len(self.object.regs_by_event.all())
+        context['students_count'] = len(self.object.regs_by_event.all())
+        context['classes_count'] = len(self.object.classes_by_event.all())
         context['link_to_new_classes'] = f"?event_id={self.object.pk}&teacher={self.request.user.profile.id}"
         context['link_to_classes'] = f"?event_id={self.object.pk}"
         if self.request.user.id:

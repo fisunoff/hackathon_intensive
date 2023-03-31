@@ -7,7 +7,6 @@
         {% block meta_tags %}{% endblock %}
         <title>{% block title %}{{ page_title|default:'Тестовое название' }}{% endblock %}</title>
         <link rel="icon" href="{% static 'icons/favicon.ico' %}" sizes="any">
-        <link rel="icon" href="{% static 'icons/icon.svg' %}">
 
         {% block css %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -23,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
-            <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="{% static 'images/logo.jpg' %}" height="30" class="d-inline-block align-top" alt="">
                 Тут название
           </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

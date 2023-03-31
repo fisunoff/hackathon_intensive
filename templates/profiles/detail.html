@@ -12,7 +12,7 @@
                     <dt class="col-sm-3">О себе</dt>
                     <dd class="col-sm-9">{{ profile.bio|default_if_none:"&#10060" }}</dd>
                     <dt class="col-sm-3">Сотрудник</dt>
-                    {% if is_staff %}
+                    {% if is_profile_staff %}
                         <dd class="col-sm-9">Да</dd>
                     {% else %}
                         <dd class="col-sm-9">Нет</dd>

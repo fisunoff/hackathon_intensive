@@ -37,7 +37,7 @@
                     <dt class="col-sm-3">Участники</dt>
                     <dd class="col-sm-9"><a href="{% url 'reg_event-list' %}{{ link }}">{{ students_count }}</a></dd>
                     <dt class="col-sm-3">Занятия</dt>
-                    <dd class="col-sm-9"><a href="{% url 'classes-list' %}{{ link_to_classes }}">{{ students_count }}</a></dd>
+                    <dd class="col-sm-9"><a href="{% url 'classes-list' %}{{ link_to_classes }}">{{ classes_count }}</a></dd>
                     {% if is_staff %}
                         <a href="{% url 'event-update' event.id %}" class="btn btn-primary">Редактировать</a>
                         <a href="{% url 'event-delete' event.id %}" class="btn btn-danger">Удалить</a>

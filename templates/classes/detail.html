@@ -1,6 +1,7 @@
 {% include "base.html" with page_title=classes %}
 {% block container %}
     <div class="container mt-4">
+        <div><a href={% url 'event-detail' classes.event_id.id %}>Назад, к интенсиву</a></div>
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">{{ classes }}</h5>
@@ -18,7 +19,16 @@
                     <dd class="col-sm-9">{{ classes.end_date_hard|default_if_none:"&#10060" }}</dd>
                     <dt class="col-sm-3">Преподаватель</dt>
                     <dd class="col-sm-9">{{ classes.teacher|default_if_none:"&#10060" }}</dd>
-
+                    <dt class="col-sm-3">Мои решения</dt>
+                    {% if homeworks %}
+                        <dt class="col-sm-9">
+                            {% for homework in homeworks %}
+                                <a href={% url 'homework-detail' homework.id %}>{{ homework }}</a>
+                            {% endfor %}
+                        </dt>
+                    {% else %}
+                        <dd class="col-sm-9">{{ homeworks|default_if_none:"&#10060" }}</dd>
+                    {% endif %}
                     {% if classes.file %}
                         <dt class="col-sm-3">Прикрепленный документ</dt>
                         <dd class="col-sm-9"><a href={{ classes.file.url }} download> {{ filename }} </a></dd>
@@ -28,7 +38,7 @@
                         <a href="{% url 'classes-update' classes.id %}" class="btn btn-primary">Редактировать</a>
                         <a href="{% url 'classes-delete' classes.id %}" class="btn btn-danger">Удалить</a>
                     {% else %}
-                        <a href="/">Будет домашка</a>
+                        <a href="{% url 'homework-create' %}{{ link_to_add_homework }}" class="btn btn-danger">Новое решение</a>
                     {% endif %}
 
                 </dl>
