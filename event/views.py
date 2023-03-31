@@ -4,7 +4,8 @@ from django.utils import timezone
 from django_tables2 import SingleTableView
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.models import User
-from funcs import group_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 from event.tables import EventTable
@@ -18,6 +19,7 @@ class EventListView(SingleTableView):
     table_class = EventTable
 
 
+@method_decorator(login_required, name='dispatch')
 class EventCreateView(CreateView):
     model = Event
     template_name = 'event/create.html'
@@ -36,6 +38,7 @@ class EventCreateView(CreateView):
         return initial_data
 
 
+@method_decorator(login_required, name='dispatch')
 class EventDetailView(DetailView):
     model = Event
     template_name = 'event/detail.html'
@@ -70,12 +73,14 @@ class EventDetailView(DetailView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class EventDeleteView(DeleteView):
     model = Event
     template_name = 'event/delete.html'
     success_url = reverse_lazy('event-list')
 
 
+@method_decorator(login_required, name='dispatch')
 class EventUpdateView(UpdateView):
 
     model = Event
