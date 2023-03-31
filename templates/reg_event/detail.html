@@ -3,43 +3,25 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">{{ event }}</h5>
+                <h5 class="card-title">Запись о регистрации</h5>
             </div>
             <div class="card-body">
                 <dl class="row">
-                    <dt class="col-sm-3">Описание</dt>
-                    <dd class="col-sm-9">{{ event.info|default_if_none:"&#10060" }}</dd>
-                    <dt class="col-sm-3">Начало регистрации</dt>
-                    <dd class="col-sm-9">{{ event.registration_start|default_if_none:"&#10060" }}</dd>
-                    <dt class="col-sm-3">Конец регистрации</dt>
-                    <dd class="col-sm-9">{{ event.registration_end|default_if_none:"&#10060" }}</dd>
-                    <dt class="col-sm-3">Начало интенсива</dt>
-                    <dd class="col-sm-9">{{ event.start_date|default_if_none:"&#10060" }}</dd>
-                    <dt class="col-sm-3">Конец интенсива</dt>
-                    <dd class="col-sm-9">{{ event.end_date|default_if_none:"&#10060" }}</dd>
-                    <dt class="col-sm-3">Автор записи</dt>
-                    <dd class="col-sm-9">{{ event.author|default_if_none:"&#10060" }}</dd>
-                    <dt class="col-sm-3">Организаторы</dt>
-                    {% if event.organizers.all %}
-                        <dt class="col-sm-9">
-                            {% for org in event.organizers.all %}
-                                {{ org }}
-                            {% endfor %}
-                        </dt>
-                    {% else %}
-                        <dd class="col-sm-9">Отсутствуют</dd>
-                    {% endif %}
-                    {% if event.file %}
-                        <dt class="col-sm-3">Прикрепленный документ</dt>
-                        <dd class="col-sm-9"><a href={{ event.file.url }} download> {{ filename }} </a></dd>
-                    {% endif %}
+                    <dt class="col-sm-3">Студент</dt>
+                    <dd class="col-sm-9">{{ reg_event.intern|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Оценка интенсива</dt>
+                    <dd class="col-sm-9">{{ reg_event.rating|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Оценка студента</dt>
+                    <dd class="col-sm-9">{{ reg_event.estimation|default_if_none:"&#10060" }}</dd>
+
 
 
                     {% if is_staff %}
-                        <a href="{% url 'event-update' event.id %}" class="btn btn-primary">Редактировать</a>
-                        <a href="{% url 'event-delete' event.id %}" class="btn btn-danger">Удалить</a>
+                        <a href="{% url 'reg_event-mark' reg_event.id %}" class="btn btn-primary">Оценить</a>
                     {% else %}
-                        <a class="btn btn-primary disabled">Редактировать</a>
+                        {% if user.profile.id == reg_event.intern.id %}
+                            <a href="{% url 'reg_event-update' reg_event.id %}" class="btn btn-primary">Оценить интенсив</a>
+                        {% endif %}
                     {% endif %}
 
                 </dl>

@@ -35,7 +35,8 @@
             <thead>
             <tr>
                 <th scope="col">Название</th>
-                <th scope="col">Оценка</th>
+                <th scope="col">Оценка студента</th>
+                <th scope="col">Оценка студентом мероприятия</th>
                 <th scope="col">Решения</th>
             </tr>
             </thead>
@@ -43,8 +44,13 @@
             {% for reg_event in profile.regs_by_student.all %}
                 <tr>
                     <td><a href="{% url 'event-detail' reg_event.event_id.id %}">{{ reg_event.event_id }}</a></td>
-                    {% if reg_event.event_id.rating %}
-                        <td>{{ reg_event.event_id.rating }}</td>
+                    {% if reg_event.estimation %}
+                        <td>{{ reg_event.estimation }}</td>
+                    {% else %}
+                        <td>&#10060</td>
+                    {% endif %}
+                    {% if reg_event.rating %}
+                        <td>{{ reg_event.rating }}</td>
                     {% else %}
                         <td>&#10060</td>
                     {% endif %}

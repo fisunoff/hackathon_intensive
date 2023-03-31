@@ -80,5 +80,4 @@ class HomeWorkUpdateByStaffView(UpdateView):
     fields = ('mark', 'comment')
 
     def get_success_url(self):
-        print("succes типа")
         return reverse_lazy('homework-detail', kwargs={'pk': self.object.id})

@@ -17,7 +17,7 @@
                     <dd class="col-sm-9">{{ homework.time_edit|default_if_none:"&#10060" }}</dd>
                     <dt class="col-sm-3">Оценка от преподавателя</dt>
                     <dd class="col-sm-9">{{ homework.mark|default_if_none:"Не оценено" }}</dd>
-                    <dt class="col-sm-3">Дата редактирования</dt>
+                    <dt class="col-sm-3">Комментарий от проверяющего</dt>
                     <dd class="col-sm-9">{{ homework.comment|default_if_none:"Нет комментария" }}</dd>
 
                     {% if classes.file %}
@@ -35,5 +35,6 @@
                 </dl>
             </div>
         </div>
+    </div>
 
 {% endblock %}
