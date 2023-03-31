@@ -37,6 +37,7 @@
                     {% if is_staff %}
                         <a href="{% url 'classes-update' classes.id %}" class="btn btn-primary">Редактировать</a>
                         <a href="{% url 'classes-delete' classes.id %}" class="btn btn-danger">Удалить</a>
+                        <a href="{% url 'homework-list' %}?classes_id={{ classes.id }}" class="btn btn-danger">Проверить решения</a>
                     {% else %}
                         <a href="{% url 'homework-create' %}{{ link_to_add_homework }}" class="btn btn-danger">Новое решение</a>
                     {% endif %}

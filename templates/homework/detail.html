@@ -19,10 +19,9 @@
                     <dd class="col-sm-9">{{ homework.mark|default_if_none:"Не оценено" }}</dd>
                     <dt class="col-sm-3">Комментарий от проверяющего</dt>
                     <dd class="col-sm-9">{{ homework.comment|default_if_none:"Нет комментария" }}</dd>
-
-                    {% if classes.file %}
+                    {% if homework.file %}
                         <dt class="col-sm-3">Прикрепленный документ</dt>
-                        <dd class="col-sm-9"><a href={{ classes.file.url }} download> {{ filename }} </a></dd>
+                        <dd class="col-sm-9"><a href={{ homework.file.url }} download> {{ filename }} </a></dd>
                     {% endif %}
 
                     {% if is_staff %}
