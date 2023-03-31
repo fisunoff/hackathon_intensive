@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.urls import path, include
-
+from extended_user.views import SignUp
 
 urlpatterns = [
     path('', include('news.urls')),
@@ -27,7 +27,7 @@ urlpatterns = [
     path('accounts/password-change/', PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'),
     path('accounts/password-change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('register/', include('extended_user.urls'), name='signup'),
-    # path('register/', RegisterUser.as_view(),name='register')
+    path('reg/', SignUp.as_view(), name='reg'),
     path('users/', include('extended_user.urls')),
     path('events/', include('event.urls')),
     path('classes/', include('classes.urls')),
