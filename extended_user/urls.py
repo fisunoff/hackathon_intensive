@@ -1,7 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 
 from extended_user.views import *
 
 urlpatterns = [
-    path('', SignUp.as_view(), name='register')
+    path('', UsersListView.as_view(), name="profile-list"),
+    path('<int:pk>/', UserDetailView.as_view(), name='profile-detail'),
+    path('<int:pk>/update/', UserUpdateView.as_view(), name='profile-update'),
+
 ]
