@@ -3,8 +3,8 @@ from reg_event.models import RegEvent
 
 
 class RegEventTable(tables.Table):
-    edit = tables.TemplateColumn('<a href="{% url \'reg_event-detail\' record.id %}">&#128203;</a>', orderable=False,
-                                 verbose_name="")
+    edit = tables.TemplateColumn('<a href="{% url \'profile-detail\' record.intern.id %}">&#128203;</a>',
+                                 orderable=False, verbose_name="")
 
     class Meta:
         model = RegEvent

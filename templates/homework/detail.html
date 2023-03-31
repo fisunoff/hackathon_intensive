@@ -1,6 +1,7 @@
 {% include "base.html" with page_title=classes %}
 {% block container %}
     <div class="container mt-4">
+        <div><a href={% url 'classes-detail' homework.classes_id.id %}>Назад, к заданию</a></div>
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">{{ homework }}</h5>
