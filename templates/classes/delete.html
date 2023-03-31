@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block container %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Удалить занятие {{ object }}</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="alert alert-warning" role="alert">
+                Вы точно хотите удалить <strong>{{ object }}</strong> ?
+            </div>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <button type="button" onclick="location.href='{% url 'event-detail' object.id %}"
+                    class="btn btn-secondary">Отмена</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

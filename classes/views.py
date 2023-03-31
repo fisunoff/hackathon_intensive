@@ -7,39 +7,39 @@ from django.contrib.auth.models import User
 from funcs import group_required
 # Create your views here.
 
-from event.tables import EventTable
+from classes.tables import ClassesTable
 
-from event.models import Event
-
-
-class EventListView(SingleTableView):
-    model = Event
-    template_name = 'event/list.html'
-    table_class = EventTable
+from classes.models import Class
 
 
-class EventCreateView(CreateView):
-    model = Event
+class ClassesListView(SingleTableView):
+    model = Class
+    template_name = 'classes/list.html'
+    table_class = ClassesTable
+
+    def get_queryset(self):
+        return Class.objects.filter(event_id=self.request.GET.get('event_id'))
+
+
+class ClassesCreateView(CreateView):
+    model = Class
     template_name = 'event/create.html'
-    fields = ('title', 'info', 'registration_start', 'registration_end',
-              'start_date', 'end_date', 'author', 'organizers', 'file')
+    fields = ('title', 'info', 'start_date', 'event_id',
+              'end_date_soft', 'end_date_hard', 'teacher', 'file')
     success_url = reverse_lazy('event-list')
 
     def get_initial(self):
         initial_data = {}
-        for i in ['interaction_name', 'student', 'description', 'type', 'mentor', 'start_date', 'end_date',
-                  'status', 'tags']:
+        for i in ('title', 'info', 'start_date', 'event_id',
+                  'end_date_soft', 'end_date_hard', 'teacher', 'file'):
             initial_data[i] = self.request.GET.get(i)
-        tags_request = self.request.GET.get('tags')
-        if tags_request:
-            initial_data['tags'] = list(map(int, self.request.GET.get('tags').split(",")))
         return initial_data
 
 
-class EventDetailView(DetailView):
-    model = Event
-    template_name = 'event/detail.html'
-    context_object_name = 'event'
+class ClassesDetailView(DetailView):
+    model = Class
+    template_name = 'classes/detail.html'
+    context_object_name = 'classes'
 
     """def get_context_data(self, **kwargs):
         context = super(EventDetailView, self).get_context_data(**kwargs)
@@ -53,36 +53,30 @@ class EventDetailView(DetailView):
                              f"&status={self.object.status.id if self.object.status else None}" \
                              f"&tags={tags}"
         return context"""
+
     # копирование. пока не делаем
 
     def get_context_data(self, **kwargs):
-        context = super(EventDetailView, self).get_context_data(**kwargs)
+        context = super(ClassesDetailView, self).get_context_data(**kwargs)
         context['filename'] = self.object.get_file_name()
         user = User.objects.get(pk=self.request.user.id)
         context['is_staff'] = user.groups.filter(name__in=['worker', ]).exists()
-        context['link'] = f"?event_id={self.object.pk}"
-        context['students_count'] = len(self.object.classes_by_event.all())
-        context['classes_count'] = len(self.object.regs_by_event.all())
-        context['link_to_new_classes'] = f"?event_id={self.object.pk}&teacher={self.request.user.profile.id}"
-        context['link_to_classes'] = f"?event_id={self.object.pk}"
-        if self.request.user.id:
-            context['link_to_reg'] = f"?intern={self.request.user.profile.id}&event_id={self.object.pk}"
+        context['link_to_event'] = f"?event_id={self.object.pk}"
         return context
 
 
-class EventDeleteView(DeleteView):
-    model = Event
-    template_name = 'event/delete.html'
+class ClassesDeleteView(DeleteView):
+    model = Class
+    template_name = 'classes/delete.html'
     success_url = reverse_lazy('event-list')
 
 
-class EventUpdateView(UpdateView):
-
-    model = Event
-    template_name = 'event/update.html'
-    context_object_name = 'event'
-    fields = ('title', 'info', 'registration_start', 'registration_end',
-              'start_date', 'end_date', 'author', 'organizers', 'file')
+class ClassesUpdateView(UpdateView):
+    model = Class
+    template_name = 'classes/update.html'
+    context_object_name = 'classes'
+    fields = ('title', 'info', 'start_date',
+              'end_date_soft', 'end_date_hard', 'teacher', 'file')
 
     def get_success_url(self):
         self.object.time_edit = timezone.now()

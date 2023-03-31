@@ -1,0 +1,9 @@
+{% include "base.html" with page_title='Занятия' %}
+
+{% block container %}
+    <div class="container mt-4">
+        {% load render_table from django_tables2 %}
+        <h1>Занятия<a href="{% url 'classes-create' %}" class="btn btn-primary btn-lg">Создать</a></h1></h1>
+        {% render_table table %}
+    </div>
+{% endblock %}

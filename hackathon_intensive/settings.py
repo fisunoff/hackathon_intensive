@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'extended_user',
     'news',
     'reg_event',
-    'event'
+    'event',
+    'classes',
 ]
 
 MIDDLEWARE = [

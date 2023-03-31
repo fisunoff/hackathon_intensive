@@ -1,0 +1,38 @@
+{% include "base.html" with page_title=classes %}
+{% block container %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{ classes }}</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Описание</dt>
+                    <dd class="col-sm-9">{{ classes.info|default_if_none:"&#10060" }}</dd>
+
+                    <dt class="col-sm-3">Начало сдачи</dt>
+                    <dd class="col-sm-9">{{ classes.start_date|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Мягкий дедлайн</dt>
+                    <dd class="col-sm-9">{{ classes.end_date_soft|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Жесткий дедлайн</dt>
+                    <dd class="col-sm-9">{{ classes.end_date_hard|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Преподаватель</dt>
+                    <dd class="col-sm-9">{{ classes.teacher|default_if_none:"&#10060" }}</dd>
+
+                    {% if classes.file %}
+                        <dt class="col-sm-3">Прикрепленный документ</dt>
+                        <dd class="col-sm-9"><a href={{ classes.file.url }} download> {{ filename }} </a></dd>
+                    {% endif %}
+
+                    {% if is_staff %}
+                        <a href="{% url 'classes-update' classes.id %}" class="btn btn-primary">Редактировать</a>
+                        <a href="{% url 'classes-delete' classes.id %}" class="btn btn-danger">Удалить</a>
+                    {% else %}
+                        <a href="/">Будет домашка</a>
+                    {% endif %}
+
+                </dl>
+            </div>
+        </div>
+
+{% endblock %}

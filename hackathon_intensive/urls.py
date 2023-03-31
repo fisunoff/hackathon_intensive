@@ -30,5 +30,6 @@ urlpatterns = [
     # path('register/', RegisterUser.as_view(),name='register')
     path('users/', include('extended_user.urls')),
     path('events/', include('event.urls')),
+    path('classes/', include('classes.urls')),
     path('reg_events/', include('reg_event.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
