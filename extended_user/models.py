@@ -25,7 +25,7 @@ class Profile(models.Model):
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
         unique_together = ['name', 'surname', 'patronymic']
-        ordering = ['surname', 'name', 'position']
+        # ordering = ['surname', 'name', 'position']
 
 
 @receiver(post_save, sender=User)
