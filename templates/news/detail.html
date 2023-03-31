@@ -2,5 +2,16 @@
 
 {% block container %}
     Тема: {{ news.title }}<br><hr>
-    {{ news.info }}
+    {{ news.info }}<br><hr>
+    {{ news.time_create}}<br><hr>
+    (изменение){{ news.time_edit}}<br><hr>
+    {{ news.author}}<br><hr>
+
+{% if news.photo %}
+    <img src="{{ news.photo.url }}" alt="альтернативный текст">
+{% else %}
+    <p>Картинки нет</p>
+{% endif %}
+  <p><a href="{% url 'news:post_edit' news.pk %}">Редакция</a></p>
+  <p><a href="{% url 'news:post_delete' news.pk %}">Удалить</a></p>
 {% endblock %}

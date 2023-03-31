@@ -2,15 +2,19 @@
 
 {% block container %}
 <h1>Тут будут новости</h1>
-
   {% for post in news %}
     <div class="post-entry">
-        <a href="{% url 'news:detail' post.id %}" class="nav-link">
+        <a href="{% url 'news:post_detail' post.id %}" class="nav-link">
                 <span >{{ post.title }}</span>
             </a>
       <p>Описние: {{ post.info }}</p>
     </div>
 
   {% endfor %}
+{% endblock %}
 
+{% block add_new %}
+    <div class="nav-right">
+      <a href="{% url 'news:post_new' %}">Добавить новость</a>
+    </div>
 {% endblock %}

@@ -40,6 +40,9 @@
                         <a class="nav-link" href="{% url 'event-list' %}">Интенсивы</a>
                     </li>
 
+                    {% block add_new %}
+                    {% endblock %}
+
                     <li class="nav-item active">
                         {% if user.is_authenticated %}
                             <a class="nav-link"
