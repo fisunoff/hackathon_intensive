@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'reg_event',
     'event',
     'classes',
+    'homework'
 ]
 
 MIDDLEWARE = [

@@ -32,4 +32,5 @@ urlpatterns = [
     path('events/', include('event.urls')),
     path('classes/', include('classes.urls')),
     path('reg_events/', include('reg_event.urls')),
+    path('homework/', include('homework.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -10,6 +10,7 @@ from funcs import group_required
 from classes.tables import ClassesTable
 
 from classes.models import Class
+from homework.models import HomeWork
 
 
 class ClassesListView(SingleTableView):
@@ -62,6 +63,9 @@ class ClassesDetailView(DetailView):
         user = User.objects.get(pk=self.request.user.id)
         context['is_staff'] = user.groups.filter(name__in=['worker', ]).exists()
         context['link_to_event'] = f"?event_id={self.object.pk}"
+        context['link_to_add_homework'] = f"?classes_id={self.object.pk}&student_id={self.request.user.profile.id}"
+        context['homeworks'] = HomeWork.objects.filter(student_id=self.request.user.profile.id,
+                                                       classes_id=self.object.id).all()
         return context
 
 

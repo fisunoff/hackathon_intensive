@@ -1,0 +1,38 @@
+{% include "base.html" with page_title=classes %}
+{% block container %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">{{ homework }}</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Описание</dt>
+                    <dd class="col-sm-9">{{ homework.info|default_if_none:"&#10060" }}</dd>
+
+                    <dt class="col-sm-3">Дата создания</dt>
+                    <dd class="col-sm-9">{{ homework.time_create|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Дата редактирования</dt>
+                    <dd class="col-sm-9">{{ homework.time_edit|default_if_none:"&#10060" }}</dd>
+                    <dt class="col-sm-3">Оценка от преподавателя</dt>
+                    <dd class="col-sm-9">{{ homework.mark|default_if_none:"Не оценено" }}</dd>
+                    <dt class="col-sm-3">Дата редактирования</dt>
+                    <dd class="col-sm-9">{{ homework.comment|default_if_none:"Нет комментария" }}</dd>
+
+                    {% if classes.file %}
+                        <dt class="col-sm-3">Прикрепленный документ</dt>
+                        <dd class="col-sm-9"><a href={{ classes.file.url }} download> {{ filename }} </a></dd>
+                    {% endif %}
+
+                    {% if is_staff %}
+                        <a href="{% url 'homework-rate' homework.id %}" class="btn btn-primary">Оценить</a>
+                        <a href="{% url 'homework-delete' homework.id %}" class="btn btn-danger">Удалить</a>
+                    {% else %}
+                        <a href="{% url 'homework-update' homework.id %}" class="btn btn-primary">Редактировать</a>
+                    {% endif %}
+
+                </dl>
+            </div>
+        </div>
+
+{% endblock %}
