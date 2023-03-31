@@ -5,6 +5,9 @@
 
   {% for post in news %}
     <div class="post-entry">
+        <a href="{% url 'news:detail' post.id %}" class="nav-link">
+                <span >{{ post.title }}</span>
+            </a>
       <p>Описние: {{ post.info }}</p>
     </div>
 

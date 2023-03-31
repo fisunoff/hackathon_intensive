@@ -21,7 +21,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('', include('news.urls'), name='news'),
+    path('', include('news.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/password-change/', PasswordChangeView.as_view(template_name='registration/password_change_form.html'), name='password_change'),
