@@ -11,3 +11,6 @@ class News(models.Model):
     time_edit = models.DateTimeField("Дата измения", default=timezone.now)
     author = models.ForeignKey("extended_user.Profile", verbose_name="Организаторы", on_delete=models.RESTRICT)
     photo = models.ImageField(verbose_name="Фото новости", blank=True, null=True, upload_to='media/')
+
+    def __str__(self):
+        return self.title

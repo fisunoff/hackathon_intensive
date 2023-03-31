@@ -5,9 +5,8 @@ from django.db import models
 
 
 class RegEvent(models.Model):
-    marks = (1, 2, 3, 4, 5)
 
-    intern = models.ForeignKey("extended_user.Profile", "Студент", on_delete=models.RESTRICT)
-    event_id = models.ForeignKey("event.Event", "Мероприятие", on_delete=models.RESTRICT)
-    rating = models.IntegerField("Оценка мероприятия со стороны студента", null=True, blank=True, choices=marks)
-    estimation = models.IntegerField("Оценка работы студента", null=True, blank=True, choices=marks)
+    intern = models.ForeignKey("extended_user.Profile", verbose_name="Студент", on_delete=models.RESTRICT)
+    event_id = models.ForeignKey("event.Event", verbose_name="Мероприятие", on_delete=models.RESTRICT)
+    rating = models.IntegerField("Оценка мероприятия со стороны студента", null=True, blank=True)
+    estimation = models.IntegerField("Оценка работы студента", null=True, blank=True)

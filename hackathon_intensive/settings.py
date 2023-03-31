@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Наши приложения
-    # 'comment',
+    'comment',
     'extended_user',
-#     'news',
-#     'reg_event',
-#     'event'
+    'news',
+    'reg_event',
+    'event'
 ]
 
 MIDDLEWARE = [
