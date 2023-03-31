@@ -1,7 +1,7 @@
 {% include "base.html" with page_title='Новый студент' %}
 
 {% block custom_css %}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block container %}
@@ -11,9 +11,9 @@
                 <h5 class="card-title">Новый интенсив</h5>
             </div>
             <div class="card-body">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form.as_p}}
+                    {{ form.as_p }}
                     <button type="submit" class="btn btn-success">Создать</button>
                 </form>
             </div>
