@@ -25,5 +25,11 @@ class Event(models.Model):
                 return True
         return False
 
+    def get_file_name(self):
+        if self.file:
+            return self.file.name.split("/")[-1]
+        else:
+            return None
+
     def __str__(self):
         return self.title
