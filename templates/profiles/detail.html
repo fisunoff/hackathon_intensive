@@ -30,4 +30,28 @@
             </div>
         </div>
 
+    <table class="table table-hover table-sm">
+            <caption>Интенсивы</caption>
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Оценка</th>
+                <th scope="col">Решения</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reg_event in profile.regs_by_student.all %}
+                <tr>
+                    <td><a href="{% url 'event-detail' reg_event.event_id.id %}">{{ reg_event.event_id }}</a></td>
+                    {% if reg_event.event_id.rating %}
+                        <td>{{ reg_event.event_id.rating }}</td>
+                    {% else %}
+                        <td>&#10060</td>
+                    {% endif %}
+                    <td><a href="{% url 'homework-list' %}?student_id={{ profile.id }}">...</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
 {% endblock %}

@@ -18,7 +18,15 @@ class HomeWorkListView(SingleTableView):
     table_class = HomeWorkTable
 
     def get_queryset(self):
-        return HomeWork.objects.filter(classes_id=self.request.GET.get('classes_id'))
+        classes_id = self.request.GET.get('classes_id')
+        student_id = self.request.GET.get('student_id')
+        if classes_id and student_id:
+            return HomeWork.objects.filter(classes_id=classes_id, student_id=student_id)
+        elif classes_id:
+            return HomeWork.objects.filter(classes_id=classes_id)
+        elif student_id:
+            return HomeWork.objects.filter(student_id=student_id)
+        return HomeWork.objects.all()
 
 
 class HomeWorkCreateView(CreateView):
