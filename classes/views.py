@@ -24,7 +24,7 @@ class ClassesListView(SingleTableView):
 
 class ClassesCreateView(CreateView):
     model = Class
-    template_name = 'event/create.html'
+    template_name = 'classes/create.html'
     fields = ('title', 'info', 'start_date', 'event_id',
               'end_date_soft', 'end_date_hard', 'teacher', 'file')
     success_url = reverse_lazy('event-list')
