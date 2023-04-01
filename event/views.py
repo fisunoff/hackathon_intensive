@@ -18,6 +18,15 @@ class EventListView(SingleTableView):
     template_name = 'event/list.html'
     table_class = EventTable
 
+    def get_context_data(self, **kwargs):
+        context = super(EventListView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            user = User.objects.get(pk=self.request.user.id)
+            context['is_staff'] = user.groups.filter(name__in=['worker', ]).exists()
+        else:
+            context['is_staff'] = False
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class EventCreateView(CreateView):
