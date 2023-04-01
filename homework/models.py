@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.datetime_safe import strftime
 
 
 # Create your models here.
@@ -16,7 +17,9 @@ class HomeWork(models.Model):
     comment = models.TextField("Комментарий от проверяющего", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.student_id} от {self.time_edit}"
+        dt = self.time_edit.strftime("%d.%m.%Y, %H:%M:%S")
+        return f"{self.student_id} от {dt}"
+
 
     def get_file_name(self):
         if self.file:

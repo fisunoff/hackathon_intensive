@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from event.tables import EventTable
 
 from event.models import Event
-
+from reg_event.models import RegEvent
 
 class EventListView(SingleTableView):
     model = Event
@@ -53,20 +53,6 @@ class EventDetailView(DetailView):
     template_name = 'event/detail.html'
     context_object_name = 'event'
 
-    """def get_context_data(self, **kwargs):
-        context = super(EventDetailView, self).get_context_data(**kwargs)
-        context['filename'] = self.object.get_file_name()
-        tags = ",".join([str(i.id) for i in self.object.tags.all()])
-        context['to_copy'] = f"?interaction_name={self.object.interaction_name}&description={self.object.description}" \
-                             f"&type={self.object.type.id if self.object.type else None}" \
-                             f"&mentor={self.object.mentor.id if self.object.mentor else None}" \
-                             f"&student={self.object.student.id if self.object.student else None}" \
-                             f"&start_date={self.object.start_date}&end_date={self.object.end_date}" \
-                             f"&status={self.object.status.id if self.object.status else None}" \
-                             f"&tags={tags}"
-        return context"""
-    # копирование. пока не делаем
-
     def get_context_data(self, **kwargs):
         context = super(EventDetailView, self).get_context_data(**kwargs)
         context['filename'] = self.object.get_file_name()
@@ -75,6 +61,17 @@ class EventDetailView(DetailView):
         context['link'] = f"?event_id={self.object.pk}"
         context['students_count'] = len(self.object.regs_by_event.all())
         context['classes_count'] = len(self.object.classes_by_event.all())
+        context['is_student_registered'] = RegEvent.objects.filter(intern=user.id, event_id=self.object.pk).first()
+        c = 0
+        summ = 0
+        for reg in self.object.regs_by_event.all():
+            if reg.rating:
+                c += 1
+                summ += reg.rating
+        if c > 0:
+            context['avarage_rating'] = str(summ / c)
+        else:
+            context['avarage_rating'] = "Нет оценок"
         context['link_to_new_classes'] = f"?event_id={self.object.pk}&teacher={self.request.user.profile.id}"
         context['link_to_classes'] = f"?event_id={self.object.pk}"
         if self.request.user.id:

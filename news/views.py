@@ -18,6 +18,14 @@ class NewsListView(ListView):
     template_name = 'news/home.html'
     context_object_name = 'news'
 
+    def get_context_data(self, **kwargs):
+        context = super(NewsListView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            user = User.objects.get(pk=self.request.user.id)
+            context['is_staff'] = user.groups.filter(name__in=['worker', ]).exists()
+        else:
+            context['is_staff'] = False
+        return context
 
 class NewsDetailView(DetailView):
     model = News
@@ -51,3 +59,5 @@ class NewsDeleteView(DeleteView):  # Создание нового класса
     model = News
     template_name = 'news/delete.html'
     success_url = reverse_lazy('news:home')
+
+

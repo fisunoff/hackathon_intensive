@@ -13,17 +13,18 @@
                   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
                   crossorigin="anonymous">
             <style>
-            .container{
-                text-align: -webkit-center;
-            }
-            .card{
-                margin: 50px;
-            }
-            </style>
-            <style>
-                .btn{
-                    margin-left:8px;
+                .container{
+                    text-align: -webkit-center;
                 }
+                .card{
+                    margin: 50px;
+                }
+                .btn{
+                        margin-left:8px;
+                    }
+                .test{
+                    display: flex;
+                 }
             </style>
         {% endblock %}
 
@@ -50,12 +51,12 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'profile-list' %}">Пользователи</a>
                     </li>
-                <li class="nav-item ">
-                    {% if user.is_authenticated %}
-                        {% else %}
-                        <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
-                    {% endif %}
-                </li>
+                    <li class="nav-item active">
+                        {% if user.is_authenticated %}
+                            {% else %}
+                            <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
+                        {% endif %}
+                    </li>
 
                     {% block add_new %}
                     {% endblock %}
@@ -65,12 +66,12 @@
                             <a class="nav-link"
                                href="{% url 'profile-detail' user.profile.id %}">Профиль</a>
                         {% else %}
-                            <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                            <a class="nav-link test" href="{% url 'login' %}">Вход</a>
                         {% endif %}
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'logout' %}">Выход</a>
+                            <a class="nav-link test" href="{% url 'logout' %}">Выход</a>
                         </li>
                     {% endif %}
                 </ul>

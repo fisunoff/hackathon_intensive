@@ -28,6 +28,8 @@
                     <dd class="col-sm-9"><a href="{% url 'reg_event-list' %}{{ link }}">{{ students_count }}</a></dd>
                     <dt class="col-sm-3">Занятия</dt>
                     <dd class="col-sm-9"><a href="{% url 'classes-list' %}{{ link_to_classes }}">{{ classes_count }}</a></dd>
+                    <dt class="col-sm-3">Рейтинг по мнению обучающихся</dt>
+                    <dd class="col-sm-9">{{ avarage_rating }}</dd>
                     <dt class="col-sm-3">Организаторы</dt>
                     {% if event.organizers.all %}
                         <dt class="col-sm-9">
@@ -44,7 +46,11 @@
                         <a href="{% url 'event-delete' event.id %}" class="btn btn-danger">Удалить</a>
 
                     {% else %}
-                        <a href="{% url 'reg_event-create'%}{{ link_to_reg }}" class="btn btn-primary">Зарегистрироваться</a>
+                        {% if is_student_registered %}
+                            <a href="{% url 'reg_event-detail' is_student_registered.id %}" class="btn btn-primary">Оценить</a>
+                        {% else %}
+                            <a href="{% url 'reg_event-create'%}{{ link_to_reg }}" class="btn btn-primary">Зарегистрироваться</a>
+                        {% endif %}
                     {% endif %}
 
                 </dl>

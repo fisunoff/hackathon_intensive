@@ -18,3 +18,10 @@ class News(models.Model):
 
     def get_absolute_url(self):
         return reverse('news:post_detail', args=[str(self.id)])
+
+    @property
+    def info_short(self):
+        if len(self.info) > 80:
+            return self.info[:80] + "..."
+        else:
+            return self.info

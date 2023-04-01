@@ -4,21 +4,20 @@
     <style>
     .container{
         display: flex;
-        flex-wrap: wrap-reverse;
+        flex-wrap: wrap;
         justify-content: space-between;
+        {#align-content: space-around;#}
     }
     </style>
     {% for post in news %}
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 16rem;">
         {% if post.photo %}
           <img src="{{ post.photo.url }}" class="card-img-top" alt="...">
-        {% else %}
-            ***
         {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.info }}</p>
-            <a href="{% url 'news:post_detail' post.id %}" class="btn btn-primary">Перейти по ссылке</a>
+            <p class="card-text">{{ post.info_short }}</p>
+            <a href="{% url 'news:post_detail' post.id %}" class="btn btn-primary">Подробнее</a>
           </div>
         </div>
     {% endfor %}
@@ -27,7 +26,9 @@
 {% block add_new %}
 
      <li class="nav-item active">
+     {% if is_staff %}
           <a href="{% url 'news:post_new' %}">Добавить новость</a>
+     {% endif %}
     </li>
 {% endblock %}
 
