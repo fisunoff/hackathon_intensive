@@ -17,6 +17,12 @@
                     {% else %}
                         <dd class="col-sm-9">Нет</dd>
                     {% endif %}
+                    {% if profile.photo %}
+                        <dt class="col-sm-3">Фото</dt>
+                        <dd class="col-sm-9">
+                            <img src="{{ profile.photo.url }}" alt="Фото не загружено" height="200">
+                        </dd>
+                    {% endif %}
                     {% if profile.id == user.profile.id or user.is_superuser %}
                         <a href="{% url 'profile-update' profile.id %}" class="btn btn-primary">Редактировать</a>
                     {% else %}

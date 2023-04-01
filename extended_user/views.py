@@ -58,7 +58,7 @@ class UserUpdateView(UpdateView):
     model = Profile
     template_name = 'profiles/update.html'
     context_object_name = 'mentor'
-    fields = ('surname', 'name', 'patronymic', 'bio')
+    fields = ('surname', 'name', 'patronymic', 'bio', 'photo')
 
     def get_success_url(self):
         self.object.time_edit = timezone.now()
