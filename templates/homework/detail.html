@@ -1,4 +1,4 @@
-{% include "base.html" with page_title=classes %}
+{% include "base.html" with page_title=homework %}
 {% block container %}
     <div class="container mt-4">
         <div><a href={% url 'classes-detail' homework.classes_id.id %}>Назад, к заданию</a></div>
@@ -17,12 +17,11 @@
                     <dd class="col-sm-9">{{ homework.time_edit|default_if_none:"&#10060" }}</dd>
                     <dt class="col-sm-3">Оценка от преподавателя</dt>
                     <dd class="col-sm-9">{{ homework.mark|default_if_none:"Не оценено" }}</dd>
-                    <dt class="col-sm-3">Дата редактирования</dt>
+                    <dt class="col-sm-3">Комментарий от проверяющего</dt>
                     <dd class="col-sm-9">{{ homework.comment|default_if_none:"Нет комментария" }}</dd>
-
-                    {% if classes.file %}
+                    {% if homework.file %}
                         <dt class="col-sm-3">Прикрепленный документ</dt>
-                        <dd class="col-sm-9"><a href={{ classes.file.url }} download> {{ filename }} </a></dd>
+                        <dd class="col-sm-9"><a href={{ homework.file.url }} download> {{ filename }} </a></dd>
                     {% endif %}
 
                     {% if is_staff %}
@@ -35,5 +34,6 @@
                 </dl>
             </div>
         </div>
+    </div>
 
 {% endblock %}

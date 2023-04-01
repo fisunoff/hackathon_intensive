@@ -1,19 +1,21 @@
-{% extends "base.html" %}
+{% include "base.html" with page_title='Удалить интенсив' %}
 {% block container %}
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title">Удалить интенсив {{ object }}</h5>
-    </div>
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            <div class="alert alert-warning" role="alert">
-                Вы точно хотите удалить <strong>{{ object }}</strong> ?
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Удалить интенсив {{ object }}</h5>
             </div>
-            <button type="submit" class="btn btn-danger">Удалить</button>
-            <button type="button" onclick="location.href='{% url 'event-detail' object.id %}"
-                    class="btn btn-secondary">Отмена</button>
-        </form>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="alert alert-warning" role="alert">
+                        Вы точно хотите удалить <strong>{{ object }}</strong> ?
+                    </div>
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                    <button type="button" onclick="location.href='{% url 'event-detail' object.id %}"
+                            class="btn btn-secondary">Отмена</button>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}
