@@ -5,18 +5,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         {% block meta_tags %}{% endblock %}
-        <title>{% block title %}{{ page_title|default:'Интенсивы' }}{% endblock %}</title>
+        <title>{% block title %}{{ page_title|default:'Тестовое название' }}{% endblock %}</title>
         <link rel="icon" href="{% static 'icons/favicon.ico' %}" sizes="any">
 
         {% block css %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
                   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
                   crossorigin="anonymous">
-            <style>
-                .btn{
-                    margin-left:8px;
-                }
-            </style>
         {% endblock %}
 
         {% block custom_css %}
@@ -26,8 +21,8 @@
         {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">
-            <img src="{% static 'images/logo.png' %}" height="35" class="d-inline-block align-top" alt="">
+            <a class="navbar-brand" href="{% url 'news:home' %}">
+            <img src="{% static 'images/logo.jpg' %}" height="30" class="d-inline-block align-top" alt="">
           </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +32,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'event-list' %}">Интенсивы</a>
-                    </li>
-                    <li class="nav-item active">
                         <a class="nav-link" href="{% url 'profile-list' %}">Пользователи</a>
                     </li>
 
-
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'event-list' %}">Интенсивы</a>
+                    </li>
+                <li class="nav-item ">
+                    {% if user.is_authenticated %}
+                            <a class="nav-link"
+                               href="{% url 'profile-detail' user.profile.id %}">Привет, {{ user.profile.name }}</a>
+                        {% else %}
+                        <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
+                    {% endif %}
+                </li>
 
                     {% block add_new %}
                     {% endblock %}
@@ -51,7 +53,7 @@
                     <li class="nav-item active">
                         {% if user.is_authenticated %}
                             <a class="nav-link"
-                               href="{% url 'profile-detail' user.profile.id %}">Профиль</a>
+                               href="{% url 'profile-detail' user.profile.id %}">Привет, {{ user.profile.name }}</a>
                         {% else %}
                             <a class="nav-link" href="{% url 'login' %}">Вход</a>
                         {% endif %}
@@ -62,8 +64,9 @@
     </nav>
 {% endblock %}
 
-
-        {% block container %}
-        {% endblock %}
+        <div class="container">
+            {% block container %}
+            {% endblock %}
+        </div>
     </body>
 </html>
