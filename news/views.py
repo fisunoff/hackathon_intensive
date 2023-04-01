@@ -4,7 +4,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView ,ListView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView , ListView
 
 from news.models import News
 
@@ -27,13 +27,13 @@ class NewsDetailView(DetailView):
 class NewsCreatView(CreateView):
     model = News
     template_name = 'news/new.html'
-    fields = ['title', 'author', 'info']
+    fields = ['title', 'author', 'info', 'photo']
 
 
 class NewsUpdateView(UpdateView):
     models = News
     template_name = 'news/edit.html'
-    fields = ['title', 'info']
+    fields = ('title', 'info', 'time_create', 'author', 'photo')
 
     def get_queryset(self):
         return News.objects.all()

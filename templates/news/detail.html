@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block container %}
-    Тема: {{ news.title }}<br><hr>
-    {{ news.info }}<br><hr>
-    {{ news.time_create}}<br><hr>
-    (изменение){{ news.time_edit}}<br><hr>
-    {{ news.author}}<br><hr>
 
-{% if news.photo %}
-    <img src="{{ news.photo.url }}" alt="альтернативный текст">
-{% else %}
-    <p>Картинки нет</p>
-{% endif %}
-  <p><a href="{% url 'news:post_edit' news.pk %}">Редакция</a></p>
+    <span>Тема: {{ news.title }}<br><hr></span>
+    {% if news.photo %}
+        <img src="{{ news.photo.url }}" alt="альтернативный текст"><br><hr>
+    {% else %}
+        <p>Картинки нет</p>
+    {% endif %}
+    <span>Описание: {{ news.info }}<br><hr></span>
+    <span>Дата создания: {{ news.time_create}}<br><hr></span>
+    <span>Организатор(-ы): {{ news.author}}<br><hr></span>
+
+
+  <p><a href="{% url 'news:post_edit' news.pk %}">Редактирование</a></p>
   <p><a href="{% url 'news:post_delete' news.pk %}">Удалить</a></p>
 {% endblock %}
