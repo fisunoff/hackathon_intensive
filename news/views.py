@@ -23,6 +23,14 @@ class NewsDetailView(DetailView):
     model = News
     template_name = 'news/detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(NewsDetailView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            user = User.objects.get(pk=self.request.user.id)
+            context['is_staff'] = user.groups.filter(name__in=['worker', ]).exists()
+        else:
+            context['is_staff'] = False
+        return context
 
 class NewsCreatView(CreateView):
     model = News

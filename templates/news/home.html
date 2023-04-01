@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block container %}
-
+    <style>
+    .container{
+        display: flex;
+        flex-wrap: wrap-reverse;
+        justify-content: space-between;
+    }
+    </style>
     {% for post in news %}
         <div class="card" style="width: 18rem;">
         {% if post.photo %}
