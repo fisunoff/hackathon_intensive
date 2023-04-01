@@ -23,7 +23,9 @@
                     {% if homeworks %}
                         <dt class="col-sm-9">
                             {% for homework in homeworks %}
-                                <a href={% url 'homework-detail' homework.id %}>{{ homework }}</a>
+                                {% if homework.id %}
+                                    <a href={% url 'homework-detail' homework.id %}>{{ homework }}</a>
+                                {% endif %}
                             {% endfor %}
                         </dt>
                     {% else %}
@@ -45,5 +47,5 @@
                 </dl>
             </div>
         </div>
-
+    </div>
 {% endblock %}
